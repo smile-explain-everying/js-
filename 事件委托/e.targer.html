@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<script src='function.js'></script>
+</head>
+<style>
+	.da{
+		width: 400px;
+		height: 400px;
+		background-color: #333;
+	}
+	.xiao{
+		width: 100px;
+		height: 100px;
+		background-color: yellow;
+		display: inline-block;
+	}
+	.xiao span{
+		display: block;
+		border: 1px solid red;
+		margin:5px; 
+	}
+</style>
+<body>
+	<div class="da">
+		<div class="xiao">
+			<span class="zan">赞</span>
+			<span class="cai">踩</span>
+			<span class="ping">评论</span>
+			<span class="zhuan">转发</span>
+		</div>
+	</div>
+</body>
+<script>
+    
+	document.ondblclick=function(){
+		var el=document.createElement('div');
+		el.classList.add('xiao');
+		el.innerHTML='<span class="zan">赞</span><span class="cai">踩</span><span class="ping">评论</span><span class="zhuan">转发</span>'
+		da.appendChild(el);
+	}
+	var da=$('.da')[0];
+	var fn1=function(){
+		this.style.background='red';
+        console.log('赞被点击')
+	}
+	var fn2=function(){
+		this.style.background='red';
+		console.log('踩被点击')
+	}
+	var fn3=function(){
+		this.style.background='red';
+		console.log('评论被点击')
+	}
+	var fn4=function(){
+		this.style.background='red';
+		console.log('转发被点击')
+	}
+	da.onclick=function(e){
+		var el=e.target
+		if(el.classList.contains('zan')){
+			fn1.call(el,e);
+		}else if(el.classList.contains('cai')){
+			fn2.call(el,e)
+		}else if(el.classList.contains('ping')){
+			fn3.call(el,e)
+		}else if(el.classList.contains('zhuan')){
+			fn4.call(el,e)
+		}
+		
+	}
+</script>
+</html>

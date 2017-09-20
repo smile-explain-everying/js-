@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>学生管理系统</title>
+</head>
+<style>
+	.box{
+		width: 600px;
+		border: 1px solid #FA43F0;
+		margin: 0 auto;
+	}
+	.box table{
+		width: 100%;
+		padding: 10px 20px;
+		text-align: center;
+		margin-left: 15px
+	}
+     .box h1{
+     	font-size: 16px;
+     	text-align: center;
+     	color:#000;
+     }
+     .box td{
+     	display: inline-block;
+     	width: 15.666%;
+     	float: left;
+     	/*border-bottom: 1px solid #000;*/
+     	padding: 10px 0;
+     	text-align: center;
+     }
+
+     .add{
+     	width: 500px;
+     	height: 30px;
+     	background: #FA43F0;
+     	margin: 20px auto;
+     	font-size: 14px;
+     	text-align: center;
+     	line-height: 30px;
+     	cursor: pointer;
+     }
+     .table input{
+     	width: 50%;
+     	border: none;
+        border-spacing: 0;
+        outline: none;
+     	text-align: center;
+     border-bottom: 1px solid red;
+     }
+     .tips{
+     	text-align: center;
+     	color: #FA43F0
+     }
+</style>
+<body>
+	<div class="box">
+		<h1>学生信息管理</h1>
+		<table class='table'>
+		   <thead>
+			<tr>
+				<td>学号</td>
+				<td>姓名</td>
+				<td>性别</td>
+				<td>年龄</td>
+				<td>籍贯</td>
+				<td>操作</td>
+			</tr>
+			<!-- <tr>
+				<td>1001</td>
+				<td>张三</td>
+				<td>女</td>
+				<td>20</td>
+				<td>山西</td>
+				<td><span class='edit'>修改</span>/<span class='delite'>删除</span></td>
+			</tr> -->
+		   </thead>
+		   <tbody>
+		   	
+		   </tbody>
+		</table>
+		<div class="add">✚</div>
+		<div class="tips"></div>
+	</div>
+</body>
+<script>
+    var students;
+    if(localStorage.students){
+    	//先判断是否储存了一张表
+    	 students=JSON.parse(localStorage.students);
+    	//如果有，取出来
+    }else{
+    	 students=[
+       {id:1001,name:'张三',sex:'女',age:'20',jiguan:'山西'},
+       {id:1002,name:'张三',sex:'女',age:'20',jiguan:'山西'},
+       {id:1003,name:'张三',sex:'女',age:'20',jiguan:'山西'},
+       {id:1004,name:'张三',sex:'女',age:'20',jiguan:'山西'},
+       {id:1005,name:'张三',sex:'女',age:'20',jiguan:'山西'}
+	 ];
+	 localStorage.setItem('students',JSON.stringify(students));
+    //储存(将对象转换成字符串进行储存)
+    }
+     // console.table(students)
+	var tbody=document.querySelector('.table tbody');
+	var render=function(){
+		for(var i in students){
+	 	//遍历其中的每一个值
+	 		var d=students[i];
+	 		var el=document.createElement('tr');
+	 		el.setAttribute('data-id',d.id)
+	 		el.innerHTML='<td data-role="id">'+d.id+'</td><td  data-role="name" >'+d.name+'</td><td  data-role="sex">'+d.sex+'</td><td  data-role="age">'+d.age+'</td><td  data-role="jiguan">'+d.jiguan+'</td><td><span class="edit" >✐</span>/<span class="delite" de="'+d.id+'">✖</span></td>';
+	 		tbody.appendChild(el);
+	 	}
+	}
+	render();		
+var deleteStudent =function(id){
+	//定义一个空数组
+	id=Number(id);
+	// console.dir(id)
+     var arr=[];
+    //遍历每一个对象
+    for(var k in students){
+     var v=students[k];
+     //把遍历的每一个数的ID与给定的i进行比较，如果不相等，加入空数组中
+	    if(v.id !==id){
+              arr.push(v);
+	    }
+    }
+    // console.log(v)
+    localStorage.removeItem('students')
+    students = arr;
+    // console.log(students)
+    //将新形成的数组赋值给students
+    localStorage.setItem('students',JSON.stringify(students));
+     
+    //重新将数组转换成字符串进行储存
+}	
+//利用事件委托把数据从页面和储存的数据中清除
+
+var deleteHandler=function(e){
+	tbody.removeChild(this.parentNode.parentNode);
+	//把数据从页面中删除
+	var id=this.getAttribute("de");
+    // console.dir(id)
+    deleteStudent(id);
+    //把数据从数据库中删除
+}
+var editHandler=function(e){
+     toggleEdit(this.parentNode.parentNode);
+}
+ tbody.onclick=function(e){
+ 	//给删除添加点击事件
+    var el=e.target;
+   if(el.classList.contains('delite')){
+   	//判断他是否包含de这个类名
+			deleteHandler.call(el,e);
+    }else if(el.classList.contains('edit')){
+             editHandler.call(el,e);
+    }  
+ }
+//添加事件
+var add=document.getElementsByClassName('add')[0];
+// console.log(add)
+add.onclick=function(){
+	if(students.length){
+		var xuehao=students[students.length-1].id+1;
+	}else{
+		var xuehao=1001;
+	}	
+	// var xuehao=(students.length)?(students[students.length-1].id+1):1001;
+//添加一条数据，并且学号为递增的
+    var stu={id:xuehao,name:'',sex:'',age:'',jiguan:''};
+    students.push(stu);
+    localStorage.students=JSON.stringify(students);
+
+	var tr=document.createElement('tr');
+	tr.setAttribute('data-id',stu.id);
+    tr.innerHTML='<td data-role="id">'+stu.id+'</td><td  data-role="name" >'+stu.name+'</td><td  data-role="sex">'+stu.sex+'</td><td  data-role="age">'+stu.age+'</td><td  data-role="jiguan">'+stu.jiguan+'</td><td><span class="edit" >✐</span>/<span class="delite" de="'+stu.id+'">✖</span></td>';
+	tbody.appendChild(tr);
+    toggleEdit(tr);
+}
+var toggleEdit=function(tr){
+	//让前面的数据变成可编辑状态
+     var tds=tr.querySelectorAll('td[data-role]');
+     // console.log(tds);
+     //找出需要编辑栏的全部类名
+     if(tr.classList.contains('editing')){
+     	//判断类名中是否包含editing;
+     	for(var i=0,el,tmp;i<tds.length;i++){
+     		el=tds[i];
+     		tmp=el.querySelector('input').value;
+     		el.innerHTML=tmp
+     	}
+     	tr.querySelector('.edit').innerHTML='✐';
+     	tr.classList.remove('editing');
+     }else{
+     	tr.classList.add('editing');
+     	//如果没有，添加一个类名
+     	 for(var i=0;i<tds.length;i++){
+    	//遍历每一个值
+	    	var el=tds[i];
+	    	var tmp=el.innerHTML;
+	    	//定义一个变量，变量内容为每一个对象的内容
+	    	el.innerHTML='<input type="text" value="'+tmp+'">';
+	    	//把内容变成inpute
+         }
+             tr.querySelector('.edit').innerHTML='✔';
+             tds[1].querySelector('input').focus();
+     }
+   
+}
+var tips=document.querySelector('.tips');
+var updatestudent=function(xuehao,key,value){
+	// console.log(xuehao,key,value)
+	// console.log(tips)
+	xuehao=Number(xuehao);
+	for(var i=0;i<students.length;i++){
+		if(students[i].id===xuehao){
+			students[i][key]=value
+		}
+	}
+	localStorage.setItem('students',JSON.stringify(students));
+	tips.innerHTML='保存成功'
+}
+var timerId;
+tbody.onkeyup=function(e){
+	var el=e.target;
+	var key=el.parentNode.getAttribute('data-role');
+	// console.log(key)
+	var xuehao=el.parentNode.parentNode.getAttribute('data-id');
+	// console.log(xuehao)
+	var value=el.value;
+	tips.innerHTML='正在保存.....'
+	clearTimeout(timerId)
+	TimerId=setTimeout(function(){
+	   updatestudent(xuehao,key,value)
+	},2000);
+}
+</script>
+</html>

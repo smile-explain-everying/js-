@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>js中new的使用</title>
+</head>
+<body>
+	
+<script>
+// <!-- js中构建一个对象的三种方式
+// 	1、字面量的形式 -->
+	var obj ={
+	"a":12,
+	"b":234,
+}
+// <!-- 以字面量的形式创建出的对象
+// 原型就是 Object.prototype 这个对象
+// 2、构造函数 -->
+var obj2 = new Object();
+obj2.a=3;
+// <!-- 3、 利用Object.creat()方法
+// 从一个已有的对象开始构建新的对象 -->
+// var mao ={
+// 	nao:function(){
+
+// 	console.log('nao nao nao')
+//   }
+// }
+// var bosimao={
+// 	'zhuai':4;
+// 	'erduo':2;
+// }
+//  dianjiaojian:function(){
+//   console.log
+// } 
+// <!-- 4、用new关键字来构建函数 -->
+var mao=function(){
+	this.zhuazi=4;
+}
+var nao=function(){
+	console.log(1)
+}
+mao.prototype.nao=function(){
+	console.log(nao);
+}
+var bosimao = new mao();
+// <!-- 每一个函数对象身上，都有一个其他对象不具备的属性 叫做protopyte -->
+// <!-- 1、构建了一个空对象｛｝；
+// 2，mao.call({})把mao那个函数作为这个空对象的临时方法调用了一次
+// 3、把mao那个函数对象身上的protopyte那个属性拿来，作为自己原型链中的一条
+// 4、返回最终对象 -->
+</script>
+	
+</body>
+</html>

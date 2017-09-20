@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<script src="function.js"></script>
+</head>
+<style>
+*{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+	.box{
+		width: 500px;
+		height: 600px;
+		margin: auto;
+		left:0;
+		right: 0;
+		top:0;
+		bottom: 0;
+		border:1px solid red;
+		overflow:scroll;
+	}
+	.tip{
+		width: 400px;
+		height: 30px;
+		border: 1px solid #000;
+		margin: 5px auto;
+	}
+	.f{
+		width: 400px;
+		height: 100px;
+		border: 1px solid pink;
+		margin: 5px auto;
+	}
+
+    .active{
+    	background-color: red;
+    }
+</style>
+<body>
+	<div class="box">
+	<div class="tip">您有五条新消息</div>
+	<ul class="k">
+		<li class="f">
+			<span>一</span>
+			<p>是否合适的经济快速的</p>
+			<span class="zan">赞（1）</span>
+		</li>
+		<li class="f">
+			<span>一</span>
+			<p>是否合适的经济快速的</p>
+			<span class="zan">赞（1）</span>
+		</li>
+		<li class="f">
+			<span>一</span>
+			<p>是否合适的经济快速的</p>
+			<span class="zan">赞（1）</span>
+		</li>
+		<li class="f">
+			<span>一</span>
+			<p>是否合适的经济快速的</p>
+			<span class="zan">赞（1）</span>
+		</li>
+	</ul>
+	</div>
+</body>
+<script>
+    var shuju=[
+	    {name:'zhangsan',neirong:'阿娇发黑发',zan:'123'},
+	    {name:'lisi',neirong:'技术的角度',zan:'123'},
+	    {name:'wangwu',neirong:'那次比你聪明',zan:'123'},
+	    {name:'zhao',neirong:'结合实际',zan:'123'},
+	    {name:'zhao',neirong:'十佳发动机看到',zan:'123'},
+    ]
+	var zan=document.getElementsByClassName('zan');
+	// console.log(zan)
+	for(var i=0;i<zan.length;i++){
+		zan[i].onclick=(function(){
+			var flag=true;
+			return function(){
+				if(flag){
+					flag=true;
+					var nub=parseInt(this.innerHTML.slice(2).slice(0,-1))+1
+					this.classList.add('active')
+					this.innerHTML='赞('+nub+')';
+					flag=false;
+				}else{
+                    var nub=parseInt(this.innerHTML.slice(2).slice(0,-1))-1
+					this.classList.remove('active')
+					this.innerHTML='赞('+nub+')';
+					flag=true;
+				}
+			}
+		})();
+	}
+	var b=document.getElementsByClassName('tip')[0];
+	var feed=document.getElementsByClassName('k')[0];
+	// console.log(feed)
+	b.onclick=function(){
+		var arr=[];
+		for(var i=0;i<5;i++){
+			var obj={name:'String.fromCharCode(Math.floor(Math.random()*1000+97))',neirong:'String.fromCharCode(Math.floor(Math.random()*1000+97))',zan:'String.fromCharCode(Math.floor(Math.random()*10+20))'}
+			arr,push(obj);
+         var al=document.createElement('div');
+         al.classList.add('f');
+         al.innerHTML='<span>'+el.name+'</span><p>'+el.neirong+'</p><span>'+el.zan+'</span>'
+         insertBefore(al,feed.firstChild)
+		}
+	}
+
+</script>
+</html>

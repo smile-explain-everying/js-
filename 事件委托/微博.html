@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<script src="function.js"></script>
+</head>
+<style>
+	.window{
+		width: 320px;
+		margin: auto;
+		top:0;
+		right:0;
+		left:0;
+		bottom: 0;
+		position: relative;
+	}
+	.tip{
+		width: 320px;
+		height: 30px;
+		background-color: #4EBBFB;
+		color:#fff;
+		text-align: center;
+		line-height: 30px;
+	}
+	.feeds{
+		width: 318px;
+		height: auto;
+		border: 1px solid #000;
+		margin-top: 5px;
+		/*background-color: #fff;*/
+		overflow:scroll;
+		margin: auto;
+		top:0;
+		right:0;
+		left:0;
+		bottom: 0;
+	}
+	.load{
+		width: 200px;
+		height: 50px;
+		position: absolute;
+		top:60px;
+		left:60px;
+		background-color: orange;
+		color:#000;
+		text-align: center;
+		line-height: 50px;
+		font-weight: bolder;
+
+	}
+	.feed{
+		width: 300px;
+		height: 100px;
+		margin: 5px;
+		font-size: 16px;
+		color:#4EBBFB;
+		border: 1px solid #4EBBFB;
+	}
+	.active{
+		background-color: #4EBBFB;
+		color: #fff;
+		cursor:pointer;
+	}
+	.area{
+		width: 318px;
+		height: 220px;
+		border: 1px solid #4EBBFB;
+		margin-top: 5px;
+	}
+	#are{
+		width: 310px;
+		height: 160px;
+		display: inline-block;
+	}
+	.fabu{
+		width: 50px;
+		height: 30px;
+		margin: 5px 130px;
+		/*margin-top: 10px;*/
+		background-color:  #4EBBFB;
+		color: #000;
+	}
+	.active{
+		background-color: pink;
+
+	}
+</style>
+<body>
+	<div class="window">
+		<div class="tip">您有五条新微博</div>
+		<div class="area">
+		<textarea name="" id="are" cols="30" rows="10" class="write"></textarea>
+		<div class="shu"></div>
+		</div>
+        <input type="button" value="发布" class="fabu">
+		<div class="feeds"></div>
+		<div class="load">加载中...</div>
+	</div>
+</body>
+<script>
+	var load=$(".load")[0];
+	var feeds=$('.feeds')[0];
+	// console.log(feeds)
+	var shuju=[
+	{name:'张杰',content:'荣获最佳男歌手',like:'赞(520)'},
+	{name:'刘诗诗',content:'女医明妃传',like:'赞(520)'},
+	{name:'陈坤',content:'火锅英雄',like:'赞(520)'}
+	]
+	setTimeout(function(){
+    	load.style.display='none';
+    	
+    	for(var i=0,al;i<shuju.length;i++){
+    		al=shuju[i]
+    	
+    	var el=document.createElement('div');
+    	el.classList.add('feed');
+    	el.innerHTML='<span>'+al.name+'</span><p>'+al.content+'</p><span class="like">'+al.like+'</span>'
+    	feeds.appendChild(el)
+    	// console.log(el);
+    	}	
+
+    },500);
+
+    var fn1=function(e){
+		var nub=parseInt(this.innerHTML.slice(2,-1))
+		this.classList.toggle('active')
+    	if(this.classList.contains('active')){
+			this.innerHTML='赞('+(nub+1)+')';
+    	}else{
+			this.innerHTML='赞('+(nub-1)+')';
+    	}
+	}
+    feeds.onclick=function(e){
+		var bl=e.target
+		if(bl.classList.contains('like')){
+			// console.log(1);
+			fn1.call(bl,e);
+		}
+	}
+	var tip=$('.tip')[0];
+	tip.onclick=function(){
+		var arr=[];
+		for(var i=0,cl;i<5;i++){
+			var obj={name:String.fromCharCode(Math.floor(Math.random()*300+97)),neirong:String.fromCharCode(Math.floor(Math.random()*300+97)),like:Math.floor(Math.random()*10101)}
+		 arr.push(obj);
+         cl=arr[i]
+         var al=document.createElement('div');
+         al.classList.add('feed');
+         al.innerHTML='<span>'+cl.name+'</span><p>'+cl.neirong+'</p><span class="like">赞('+cl.like+')</span>'
+         insertBefore(al,feeds.firstChild)
+	 }
+	}
+	var write=$('.write')[0];
+	var shu=$('.shu')[0];
+	write.onkeyup=write.onkeypress=function(){
+		var val=write.value;
+		var length=val.length;
+		if(length<30){
+			
+		    shu.innerHTML="您可以输入30个字，您已经输入"+length+"个字，还可以输入"+(30-length)+"个字";
+		}else{
+			var val=val.substr(0,30);
+			shu.innerHTML="您可以输入30个字，您已经输入30个字，还可以输入0个字";
+			write.value=val;
+		}
+	}
+    var fabu=$('.fabu')[0];
+    fabu.onclick=function(e){
+			//提交有两种方式，鼠标点击提交，键盘
+			var ev=document.event||e;
+			if(ev.type=="click"){
+					fabu();
+					// jiancha();
+		    }
+    }
+	     var fabu=function(){
+	     	        var fabu=$('.fabu')[0];
+					var val=write.value;
+					//获取文本域的默认值
+					val=val.replace(/^\s*|\s*$/g," ");
+					//把空格去掉
+					if(val==" "){
+						alert("请重新输入");
+					}else{
+						var dl=document.createElement("div");
+						//创建一个元素节点
+						dl.classList.add('feed');
+						fabu.classList.add('active')
+						// obj.style.cssText="width:300px;height:auto;border-bottom:1px dashed #ccc;margin:0 auto";
+						dl.innerHTML='<span>我</span><p>'+val+'</p><span class="like">赞(0)</span>';
+						//把文本内容给了innerHtml
+						insertBefore(dl,feeds.firstChild)
+						console.log(dl)
+						//追加到父元素后面
+						write.value=" ";
+						//让文本域显示为空
+					}
+		}
+	// write.onchange=function(){
+ //    	if(this.value.length>0){
+ //    		fabu.classList.add('active')
+ //    	}else{
+ //    		fabu.classList.remove('active')
+ //    	}
+ //    }
+</script>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	*{
+		margin:0;
+		padding: 0;
+		list-style: none;
+	}
+	.box{
+		width: 300px;
+		height: 400px;
+		border: 1px solid #999;
+		position: absolute;
+		margin: auto;
+		left:0;
+		right: 0;
+		top: 0;
+		bottom: 0; 
+	}
+	ul li{ 
+        padding:5px 20px;
+        margin-left: 30px;
+        margin-top: 20px;
+	}
+	ul input{
+		border: none;
+		border-bottom: 1px solid black;
+		outline: none;
+	}
+	.tip{
+		display: inline-block;
+		padding: 0 8px;
+	}
+	.waring{
+		font-size: 12px;
+		background: #ff3456;
+		color:#fff;
+	}
+	.success{
+		font-size: 12px;
+		color: #fff;
+		background: #23ff12;
+	}
+	#a{
+		width: 40px;
+		height: 20px;
+		background-color: pink;
+		margin-left: 50px;
+	}
+	.active{
+		background-color: red;
+		color: #fff
+	}
+</style>
+<body>
+	<input type="text" value="ws">
+
+	<input type="button" value="登录"><br>
+
+	男<input type="radio" name="xingbie">
+	女<input type="radio" name="xingbie"><br>
+
+	爱好:
+	听音乐<input type="checkbox" name="aihao">
+	看电视<input type="checkbox" name="aihao">
+	打篮球<input type="checkbox" name="aihao">
+	旅游<input type="checkbox" name="aihao"><br>
+
+    旅游胜地
+	<select id="select">
+		<option value="海南">1</option>
+		<option value="广州">2</option>
+		<option value="香港">3</option>
+	</select><br>
+
+	<textarea name="" id="area" cols="30" rows="10">
+		
+	</textarea><br>
+
+	<ul class="box">
+		<li>
+			<input type="text" name="username" value=""><br>
+			<span class="tip"></span>
+		</li>
+		<li>
+			<input type="password" name="pass" value=""><br>
+			<span class="tip"></span>
+		</li>
+		<li>
+			<input type="password" name="passrepeat" value="">
+			<span class="tip" value=""></span>
+		</li>
+		<div id="a">注册</div>
+	</ul>
+
+</body>
+<script>
+	// var el=document.getElementsByTagName('input')[0];
+	// el.onblur=function(){
+	// 	console.dir('blur');
+	// }
+	// el.onfocus=function(){
+	// 	console.dir('focus');
+	// }
+	// el.onchange=function(){
+	// 	console.dir('change');
+	// }
+
+
+	// var xbs=document.getElementsByName('xingbie');
+	// for(var i=0;i<xbs.length;i++){
+ //        xbs[i].onblur=function(){
+ //        	console.dir('blur');
+ //        }
+ //        xbs[i].onfocus=function(){
+ //        	console.dir('focus');
+ //        }
+ //        xbs[i].onchange=function(){
+ //        	console.dir('change');
+ //        }
+	// }
+
+
+	// var ahs=document.getElementsByName('aihao');
+	// for(var i=0;i<ahs.length;i++){
+	// 	ahs[i].onblur=function(){
+	// 		console.dir('blur');
+	// 	}
+	// 	ahs[i].onfocus=function(){
+	// 		console.dir('focus');
+	// 	}
+	// 	ahs[i].onchange=function(){
+ //            console.dir('change');
+	// 	}
+	// }
+
+
+	// var ly=document.getElementById('select');
+ //        ly.onblur=function(){
+ //        	console.dir('blur');
+ //        }
+ //        ly.onfocus=function(){
+ //        	console.dir('focus');
+ //        }
+ //        ly.onchange=function(){
+ //        	console.dir('change')
+ //        }
+
+
+ //    var ar=document.getElementById('area');
+ //        ar.onblur=function(){
+ //        	console.dir('blur');
+ //        }
+ //        ar.onfocus=function(){
+ //        	console.dir('focus');
+ //        }
+ //        ar.onchange=function(){
+ //        	console.dir('change')
+ //        }
+
+
+
+    // var pass=document.getElementsByName('pass')[0];
+    // var tip=document.querySelector('#tip');
+    // var passrepeat=document.getElementsByName('passrepeat')[0];
+    // var pass1="a12345";
+    // passrepeat.onkeyup=function(){
+    // 	if(this.value==pass1){
+    //          tip.innerHTML="恭喜您密码正确";
+    //          tip.classList.remove('waring');
+    //          tip.classList.add('success');
+    // 	}else{
+    // 		tip.innerHTML="请继续输入";
+    // 		tip.classList.add('waring')
+    // 	}
+    // }
+
+    var username=document.getElementsByName('username')[0];
+    var pass=document.getElementsByName('pass')[0];
+    var passrepeat=document.getElementsByName('passrepeat')[0];
+    var aa=document.getElementById('a');
+    console.log(aa)
+    var data={'yi':false,'er':false,'san':false};
+    passrepeat.onchange=function(){
+    	if(this.value!==pass.value){
+    		tianjiajinggao(this,'输入不一致');
+    		data['yi']=false;
+
+    	}else{
+    		data['yi']=true;
+    		shanchujinggao(this);
+    	}
+    	jiancha();
+    }
+    pass.onchange=function(){
+    	if(this.value.length<6){
+    		tianjiajinggao(this,'输入不一致');
+    		data['er']=false;
+    	}else{
+    		data['er']=true;
+    		shanchujinggao(this);
+    	}
+    	jiancha();
+    }
+    
+    var users={};// var usernames=['zhangsan','lisi','wangwu']
+    for(var i=0;i<1000000;i++){
+    	users[i]=true;
+    }
+    // var shifouzai=function(n){
+    // 	for(var i=0;i<users.length;i++){
+    // 		if(users[i]==n){
+    // 			return true;
+    // 		}
+    // 	}
+    // 	console.log(1)
+    // 	return false;
+    // }
+    
+    
+    username.onchange=function(){
+    	if( users[this.value] ){
+    		tianjiajinggao(this,'输入不一致');
+    		data['san']=false;
+    	}else{
+    		data['san']=true;
+    		shanchujinggao(this);
+    	}
+    	jiancha();
+    }
+  var jiancha =function(){
+    	if(data['yi'] && data['er'] && data['san']){
+    		aa.classList.add('active')
+    		aa.setAttribute('active','true')
+    	}else{
+    		aa.classList.remove('active')
+    		aa.removeAttribute('active')
+    	}
+    }
+
+ var tianjiajinggao=function(el,info){
+ 	var span =el.parentElement.querySelector('.tip');
+ 	span.innerHTML=info
+ 	span.classList.add('waring');
+     
+ }
+ var shanchujinggao=function(el){
+ 	var span =el.parentElement.querySelector('.tip');
+ 	span.innerHTML=''
+ 	span.classList.remove('waring');
+     
+ }
+ aa.onclick=function(){
+ 	if(this.hasAttribute('active')){
+    	this.innerHTML='注册中...'
+    	console.log(1)
+   		setTimeout(function(){
+    		location.href="键盘事件.html"
+    	},5000);
+ 	}
+ }
+</script>
+</html>

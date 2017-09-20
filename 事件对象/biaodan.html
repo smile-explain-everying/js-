@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	*{
+       padding: 0;
+       margin: 0;
+       list-style: none;
+	}
+	.n{
+		width: 400px;
+		height: 500px;
+		margin: auto;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom:0;
+		border:1px solid red;
+	}
+	.na{
+		padding: 5px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	.na input{
+		outline: none;
+		border:none;
+		border-bottom: 2px solid red;
+		margin:0 auto;
+		display: block;
+
+	}
+	.cl{
+		padding-top: 10px;
+		display: line-block;
+		background-color: blue;
+	}
+</style>
+<body>
+	<!-- <form action="">
+		<input type="text" value="aa">
+		 男<input type="radio" name="sex">
+		 女<input type="radio" name="sex">
+		</br>
+		</br>
+		 吃饭<input type="checkbox" name="habit">
+		 睡觉<input type="checkbox" name="habit">
+		 学习<input type="checkbox" name="habit">
+	</form>
+		</br>
+	<select name="option" id="">
+		<option value="shanxi">山西</option>
+		<option value="beijing">北京</option>
+		<option value="shanghai">上海</option>
+	</select> -->
+	<ul class="n">
+		<li class="na"><input type="text"></li>
+		<li class="na"><input type="password" name="pass">
+			<span id="cl"></span>
+		</li>
+		<li class="na"><input type="password" name="passrepeat">
+			<span id="cl"></span>
+		</li>
+	</ul>
+</body>
+<script>
+	// var el=document.getElementsByTagName('input')[0];
+	// el.onfocus=function(){
+	// 	console.log('foucs');
+	// }
+	// el.onblur=function(){
+	// 	console.log('blur');
+	// }
+	// el.onchange=function(){
+	// 	console.log('change');
+	// }
+	// var al=document.getElementsByName('sex');
+	// for(var i=0,b;i<al.length;i++){
+	// 	b=al[i]
+	// b.onfocus=function(){
+	// 	console.log('foucs');
+	// }
+	// b.onblur=function(){
+	// 	console.log('blur');
+	// }
+	// b.onchange=function(){
+	// 	console.log('change');
+	// }	
+	// }
+	
+	// var cl=document.getElementsByName('habit');
+	// for(var i=0,a;i<cl.length;i++){
+	// 	a=cl[i]
+	// a.onfocus=function(){
+	// 	console.log('foucs');
+	// }
+	// a.onblur=function(){
+	// 	console.log('blur');
+	// }
+	// a.onchange=function(){
+	// 	console.log('change');
+	// }
+	// }
+	
+	// var dl=document.getElementsByName('option');
+
+	// for(var i=0,c;i<dl.length;i++){
+	// 	c=dl[i];
+	// 	c.onfocus=function(){
+	// 		console.log('foucs');
+	// 	}
+	// 	c.onblur=function(){
+	// 		console.log('blur');
+	// 	}
+	// 	c.onchange=function(){
+	// 		console.log('change');
+	// 	}
+	// }
+	var password=document.getElementsByName('pass')[0];
+	var passrepeat=document.getElementsByName('passrepeat')[0];
+	var cl=document.getElementById('cl');
+	var pass1='1212';
+	passrepeat.onkeyup=function(){
+			if(this.value==pass1){
+			cl.innerHTML='输对了';
+			cl.style.color='red';
+		}else{
+			cl.innerHTML='输错了';
+			cl.style.color='blue'
+		}
+	}
+	
+</script>
+</html>

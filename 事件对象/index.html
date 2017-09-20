@@ -1,0 +1,121 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+</head>
+<style>
+.one{
+    transition:all .5s ease; 
+    width:200px;
+	height:200px;
+	border:1px solid red;
+	float: left;
+}	
+.selected{
+	background: red;
+}
+</style>
+<body>
+	<div class="one"></div>	
+	<div class="one"></div>	
+	<div class="one"></div>	
+	<div class="one"></div>	
+	<div class="one"></div>
+</body>
+<script>
+	var el=document.getElementsByClassName('one');
+	// console.log(el.length)
+	// el.onmouseover=function(e){
+	// 	console.log('onmouseover',e)
+	// }
+	// el.onmousemove=function(e){
+	// 	console.log('onmousemove',e)
+	// }
+	// el.onmouseout=function(e){
+	// 	console.log('onmouseout',e)
+	// }
+	// el.onmousedown=function(e){
+	// 	console.log('mousedown',e)
+	// }
+	// el.onmouseup=function(e){
+	// 	console.log('mouseup',e)
+	// }
+	// el.onclick=function(e){
+	// 	console.log('click',e)
+	// }
+	// el.ondblclick=function(e){
+	// 	console.log('dbclick',e)
+	// }
+// 事例（altKet）
+for(var i=0;i<el.length;i++){
+//遍历每一个元素
+ el[i].onclick=(function(){
+ //给每一个元素加一个点击事件
+	var flag=true;
+	return function(e){
+//让他返回一个函数
+		if (e.ctrlKey){
+			if(flag){
+				this.className='one selected';
+				// this.classList.add('selected');
+			//给点击的方格设置随机颜色
+				var r =Math.floor(Math.random()*255);
+				var g =Math.floor(Math.random()*255);
+				var b =Math.floor(Math.random()*255);
+				this.style.backgroundColor="rgb("+r+","+g+","+b+")";  
+	            flag=false;
+			}else{
+				this.className='one';
+				// this.style.position="static";
+				this.style.position="static";
+				this.style.backgroundColor="transparent";
+				flag=true;
+			}
+	    }
+	  
+      } 
+   })();
+}
+//事例（offsectX,offsectY）
+ 
+ document.ondblclick=function(e){
+ 
+ var selected=document.getElementsByClassName('selected');
+//先把选中的方块类名取出来
+ 	if(selected.length==0){
+//判断如果selested的长度为0，则弹出一个框
+ 		alert("请选中方格");
+ 	}else{	
+//如果长度不等于0，则遍历每一个元素
+ 		for(var i=0;i<selected.length;i++){
+ 	     var al=selected[i];	
+//给选中的方格加定位
+ 		al.style.position='absolute';
+ 		al.style.top=e.clientY-al.offsetHeight/2+"px";
+ 		al.style.left=e.clientX-al.offsetWidth/2+"px";
+
+ 	}
+ }
+ };
+//让选中的框移动
+document.onmousedown=function(e){
+//添加一个鼠标按下事件
+document.onmouseup=function(ev){
+//添加一个鼠标弹起事件
+var offx=ev.clientX-e.clientX;
+//移动的宽
+var offy=ev.clientY-e.clientY;
+//移动的高
+var els=document.getElementsByClassName("selected");
+for(var i=0;i<els.length;i++){
+	var el=els[i];
+	el.style.top=el.offsetTop+offy+"px";
+	el.style.left=el.offsetLeft+offx+"px";
+}
+}
+
+}
+ 
+</script>
+</html>

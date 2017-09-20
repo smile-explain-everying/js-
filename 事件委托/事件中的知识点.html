@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	div{
+		padding: 20px 30px;
+		margin: 15px 30px;
+		border: 1px solid red;
+	}
+</style>
+<body>
+	<div class="yi">
+		<div class="er">
+			<div class="san"></div>
+		</div>
+	</div>
+	<script>
+	var yi = document.querySelector('.yi');
+	var er = document.querySelector('.er');
+	var san = document.querySelector('.san');
+ //    var clickHandler=function(){
+ //    	this.style.background='red';
+ //    	this.removeEventListener('click',clickHandler)
+ //    }
+	// san.addEventListener('click',clickHandler)
+    // yi.addEventListener('click',function(e){
+    // 	 console.log('yi.again')
+    // })
+    // er.addEventListener('click',function(e){
+    //        console.log('er');
+    // })
+
+    // san.addEventListener('click',function(e){
+    //        console.log('san');
+    // })
+///////////////////////////////////////////////////////////
+//三击事件(自定义事件)
+// var sanji=new Event('sanji')
+// yi.addEventListener('sanji',function(){
+// 	console.log('三击事件')
+// })
+// yi.addEventListener('click',(function(){
+// 	var cishu=0;
+// 	return function(){
+// 		cishu+=1;
+// 		if(cishu===3){
+// 			yi.dispatchEvent(sanji);
+// 		}
+// 	setTimeout(function(){
+// 		cishu=0;
+// 	},2000)
+// 	}
+// })())
+///////////////////////////////////////////////////////////
+//三击事件函数
+
+// var sanji=function(el,fn){
+// 	 var sanji =new Event('sanji');
+// 	  el.addEventListener('sanji',function(e){
+// 	   fn.call(el,e);
+// 	  })
+
+// 	el.addEventListener('click',(function(){
+// 		var cishu=0;
+// 		return function(){
+// 			cishu+=1;
+// 			if(cishu===3){
+// 				el.dispatchEvent(sanji);
+// 			}
+
+// 		setTimeout(function(){
+// 			cishu=0;
+// 		},2000)
+// 		}
+//     })())
+// }
+
+// sanji(er,function(e){
+//   console.log(1);
+// })
+// sanji(san,function(e){
+//   console.log(3);
+// })
+
+///////////////////////////////////////////////////////////
+
+	// var longPress =new Event('longPress');
+	//  yi.addEventListener('longPress',function(){
+	//    console.log('事件触发了！');
+	// })
+ //     var t;
+	//  yi.addEventListener('mousedown',function(){
+ //      t= setTimeout(function(){
+ //      		 yi.dispatchEvent(longPress);
+ //      	},500)
+	//  });
+	//  yi.addEventListener('mouseup',function(){
+ //         clearTimeout(t)
+	//  }); 
+
+////////////////////////////////////////////////////////////////////
+
+// var longPress =new Event('longPress');
+// 	 yi.addEventListener('longPress',function(){
+// 	   console.log('事件触发了！');
+// 	})
+// var timerId;
+// yi.addEventListener('mousedown',function(){
+// 	var i=0;
+// 	timerId=setInterval(function(){
+//       i+=1;
+//       if(i===3){
+//       	yi.dispatchEvent(longPress);
+//       }
+// 	},1000);
+// })
+// document.addEventListener('mouseup',function(){
+// 	clearInterval(timerId);
+// }
+
+
+//////////////////////////////////////////////////////////////////////
+
+//长按函数
+// var onlongPress=function(el,fn){
+// 	 var longPress =new Event('longPress');
+// 	  el.addEventListener('longPress',function(e){
+// 	   fn.call(el,e);
+// 	  })
+//        var timerId;
+// 	  el.addEventListener('mousedown',function(e){
+// 	  	e.stopPropagation();
+// 		var i=0;
+// 			timerId=setInterval(function(){
+// 			      i+=1;
+// 			      if(i===3){
+// 			      	el.dispatchEvent(longPress);
+// 			      }
+// 			},1000);
+// 	   })
+// 	  el.addEventListener('mouseup',function(e){
+// 	  		e.stopPropagation();
+// 		clearInterval(timerId);
+// 	  })
+// }
+// onlongPress(er,function(){
+//   console.log(1);
+// })
+// onlongPress(san,function(e){
+//   console.log(3);
+// })
+
+//////////////////////////////////////////////////////////////////////
+	// //阻止事件冒泡
+ //    er.addEventListener('click',function(e){
+ //           console.log('er');
+ //    })
+
+ //    san.addEventListener('click',function(e){
+ //           console.log('san');
+ //            e.stopPropagation();
+ //    })
+/////////////////////////////////////////////////////////////////////////
+//回调函数
+
+ </script>
+</body>
+</html>
